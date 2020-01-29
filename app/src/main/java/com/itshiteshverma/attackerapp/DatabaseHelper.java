@@ -5,17 +5,23 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import java.util.ArrayList;
 
-import static com.itshiteshverma.attackerapp.ui.gallery.GalleryFragment.MAX_X_BOUNDS;
-import static com.itshiteshverma.attackerapp.ui.gallery.GalleryFragment.MAX_Y_BOUNDS;
 import static com.itshiteshverma.attackerapp.ui.gallery.GalleryFragment.MIN_X_BOUNDS;
 import static com.itshiteshverma.attackerapp.ui.gallery.GalleryFragment.MIN_Y_BOUNDS;
 
 
 public class DatabaseHelper extends SQLiteOpenHelper {
+
+    private static final float X_MIN_VAL = (float) -0.5;
+    private static final float X_MAX_VAL = (float) 1.5;
+
+    private static final float Y_MIN_VAL = (float) -12;
+    private static final float Y_MAX_VAL = (float) 11;
+
+    private static final float Z_MIN_VAL = (float) -5;
+    private static final float Z_MAX_VAL = (float) 10;
 
     Context mContext;
 
@@ -94,37 +100,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     if (VerticalFwd) {
                         VerticalFwd = false;
                         HorizontalFWD = true;
-                        if (UpDown) { //Top to Bottom
-                            LeftRight = true;
-                        } else { //Bottom to Top
-                            LeftRight = false;
-                        }
+                        //Top to Bottom
+                        //Bottom to Top
+                        LeftRight = UpDown;
                     } else if (HorizontalFWD) {
                         VerticalFwd = true;
                         HorizontalFWD = false;
-                        if (LeftRight) { //Left to Right
-                            UpDown = false;
-                        } else {// Right to Left
-                            UpDown = true;
-                        }
+                        //Left to Right
+                        // Right to Left
+                        UpDown = !LeftRight;
                     }
                 } else if (cmd.equals("Left Turn")) {
                     if (VerticalFwd) {
                         VerticalFwd = false;
                         HorizontalFWD = true;
-                        if (UpDown) {
-                            LeftRight = false;
-                        } else {
-                            LeftRight = true;
-                        }
+                        LeftRight = !UpDown;
                     } else if (HorizontalFWD) {
                         VerticalFwd = true;
                         HorizontalFWD = false;
-                        if (LeftRight) {
-                            UpDown = true;
-                        } else {
-                            UpDown = false;
-                        }
+                        UpDown = LeftRight;
                     }
                 }
             } while (cursor.moveToNext());
@@ -167,5 +161,41 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + Note.COMMAND_TABLE);
         db.execSQL(Note.CREATE_TABLE_COMMANDS);
         db.close();
+    }
+
+    public void noiseFiltering() {
+        String query;
+        query = "SELECT * FROM " + Note.VALUE_TABLE;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        int count = cursor.getCount();
+
+        //Starting After First Step
+        if (cursor.moveToFirst()) {
+            float x = cursor.getFloat(cursor.getColumnIndex(Note.X_VALUE));
+            float y = cursor.getFloat(cursor.getColumnIndex(Note.Y_VALUE));
+            float z = cursor.getFloat(cursor.getColumnIndex(Note.Z_VALUE));
+
+            if ((x >= X_MIN_VAL && x <= X_MAX_VAL)
+                    && (y >= Y_MIN_VAL && x <= Y_MAX_VAL)
+                    && (z >= Z_MIN_VAL && x <= Z_MAX_VAL)) {
+                //Values are under the Limits
+            } else {
+                // Value is not valid
+                updateTheDBValues(cursor);
+            }
+        }
+        db.close();
+        cursor.close();
+
+    }
+
+    private void updateTheDBValues(Cursor cursor) {
+        String query;
+        query = "DELETE FROM  " + Note.COMMAND_TABLE + " WHERE " + Note.VALUE_ID + " = '" + cursor.getLong(cursor.getColumnIndex(Note.VALUE_ID)) + "'";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor2 = db.rawQuery(query, null);
+        db.close();
+        cursor2.close();
     }
 }

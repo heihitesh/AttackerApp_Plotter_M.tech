@@ -15,15 +15,13 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.downloader.Error;
-import com.downloader.PRDownloader;
-
 import com.downloader.OnCancelListener;
 import com.downloader.OnDownloadListener;
 import com.downloader.OnPauseListener;
 import com.downloader.OnProgressListener;
 import com.downloader.OnStartOrResumeListener;
+import com.downloader.PRDownloader;
 import com.downloader.Progress;
-import com.itshiteshverma.attackerapp.DataBase_ImportExportHandler;
 import com.itshiteshverma.attackerapp.DatabaseHelper;
 import com.itshiteshverma.attackerapp.Note;
 import com.itshiteshverma.attackerapp.R;
@@ -139,7 +137,9 @@ public class ToolsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 dbHelper.createTable();
+                dbHelper.noiseFiltering();
                 dbHelper.getCommands();
+
                 exportDB(getActivity(), getLayoutInflater());
                 toastHelper.toastIconInfo("Done");
             }

@@ -8,46 +8,46 @@
     app:cardElevation="3dp"
     app:cardUseCompatPadding="true">
 
-    <LinearLayout
-        android:layout_width="200dp"
+  <LinearLayout
+      android:layout_width="200dp"
+      android:layout_height="wrap_content"
+      android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+      <TextView
+          android:id="@+id/tvHeading"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_centerHorizontal="true"
+          android:layout_centerVertical="true"
+          android:layout_margin="5dp"
+          android:gravity="center"
+          android:padding="4dp"
+          android:text=" Loading\nPlease Wait "
+          android:textColor="@color/light_green_800"
+          android:textSize="20dp"
+          android:textStyle="bold" />
+
+    </RelativeLayout>
+
+
+    <ProgressBar
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_gravity="center"
+        android:layout_margin="10dp" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/tvHeading"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:layout_margin="5dp"
-                android:gravity="center"
-                android:padding="4dp"
-                android:text=" Loading\nPlease Wait "
-                android:textColor="@color/light_green_800"
-                android:textSize="20dp"
-                android:textStyle="bold" />
-
-        </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@color/light_green_800" />
 
 
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="10dp" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:background="@color/light_green_800" />
-
-
-    </LinearLayout>
+  </LinearLayout>
 
 </androidx.cardview.widget.CardView>
