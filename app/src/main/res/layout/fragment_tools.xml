@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:weightSum="10">
+
+        <Button
+            android:id="@+id/bImportDataBase"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="5"
+            android:background="@color/green_A400"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="1) Get Sensor Values From Cloud" />
+
+        <Button
+            android:id="@+id/bImportDataBaseLocally"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:layout_weight="5"
+            android:background="@color/orange_900"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="1)  Get Sensor Values Locally" />
+
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/bSelectMap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:background="@color/green_A400"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="2) Select Map" />
+
+    <Button
+        android:id="@+id/bgetValues"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="@color/green_A400"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="3) Pre - Processing" />
+
+    <Button
+        android:id="@+id/bVisualize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="@color/green_A400"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="4) Visualize Data" />
+
+</LinearLayout>
